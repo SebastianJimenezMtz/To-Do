@@ -1,0 +1,104 @@
+.login-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #f4f7f6; /* Same as main app background */
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.login-box {
+  background-color: #ffffff;
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+.login-box h2 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 1.8em;
+  color: #333;
+  font-weight: 600;
+}
+
+.login-box p {
+  margin-bottom: 25px; /* Slightly reduced margin */
+  color: #666;
+  font-size: 1em;
+}
+
+.input-group {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: #444;
+  font-size: 0.9em;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 1em;
+  box-sizing: border-box; /* Ensures padding doesn't affect width */
+}
+
+.login-btn {
+  width: 100%;
+  padding: 12px 15px;
+  background-color: #4a69bd; /* Primary button color */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1em;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.login-btn:hover {
+  background-color: #3b5998;
+}
+
+.error-message {
+  color: #d9534f; /* Bootstrap danger color */
+  font-size: 0.9em;
+  margin-bottom: 15px;
+  margin-top: -10px; /* Pull it closer to the input field */
+}
+
+.demo-info {
+  font-size: 0.85em;
+  color: #777;
+  margin-top: 20px; /* Adjusted margin */
+}
+
+.toggle-form-text {
+  margin-top: 20px;
+  font-size: 0.9em;
+  color: #555;
+}
+
+.toggle-form-btn {
+  background: none;
+  border: none;
+  color: #4a69bd; /* Primary link color */
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0 5px;
+  font-size: 1em; /* Match surrounding text */
+}
+
+.toggle-form-btn:hover {
+  text-decoration: underline;
+}

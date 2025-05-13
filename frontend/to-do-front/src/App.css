@@ -1,0 +1,281 @@
+.App {
+  display: flex;
+  height: 100vh;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.sidebar {
+  width: 280px;
+  background-color: #ffffff; /* White sidebar */
+  padding: 20px;
+  border-right: 1px solid #e0e0e0; /* Light border */
+  display: flex;
+  flex-direction: column;
+}
+
+.main-content {
+  flex-grow: 1;
+  padding: 40px;
+  background-color: #f9f9f9; /* Slightly off-white for content area */
+  overflow-y: auto;
+}
+
+.user-profile-section { /* New container for profile and logout */
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 25px; /* Increased bottom margin */
+}
+
+.user-details { /* Container for avatar and info */
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px; /* Space between user details and logout button */
+}
+
+.user-profile {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px; /* Reduced margin slightly */
+  position: relative; /* For positioning logout button if needed */
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+  background-color: #ccc; /* Placeholder for avatar image */
+}
+
+.user-info h4 {
+  margin: 0 0 2px 0; /* Add a little space below the name */
+  font-size: 1em;
+  font-weight: 600;
+}
+
+.user-info p {
+  margin: 0;
+  font-size: 0.85em;
+  color: #666;
+  word-break: break-all; /* Prevent long emails from breaking layout */
+}
+
+.lists-nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.lists-nav li {
+  padding: 10px 15px;
+  margin-bottom: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  font-size: 0.95em;
+}
+
+.lists-nav li.active {
+  background-color: #eef2ff; /* Light blue for active list */
+  color: #4a69bd; /* Darker blue for active list text */
+  font-weight: 500;
+}
+
+.lists-nav li:hover:not(.active) {
+  background-color: #f0f0f0;
+}
+
+.list-item-container { /* New class for li to help with flex layout */
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Pushes delete button to the right */
+}
+
+.list-name {
+  flex-grow: 1; /* Allows list name to take available space */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-right: 5px; /* Space between name and delete button */
+}
+
+.list-icon {
+  margin-right: 10px;
+}
+
+.delete-list-btn {
+  background: none;
+  border: none;
+  color: #cc0000; /* Red color for delete */
+  cursor: pointer;
+  font-size: 1.2em; /* Make X a bit larger */
+  padding: 0 5px;
+  line-height: 1;
+  border-radius: 3px;
+  visibility: hidden; /* Hidden by default */
+}
+
+.lists-nav li:hover .delete-list-btn {
+  visibility: visible; /* Show on hover of the list item */
+}
+
+.delete-list-btn:hover {
+  background-color: #f0f0f0;
+  color: #a00000;
+}
+
+.create-list-btn {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  margin-top: 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.95em;
+  color: #333;
+  border: none;
+  background: none;
+  text-align: left;
+  width: 100%;
+}
+
+.create-list-btn:hover {
+  background-color: #f0f0f0;
+}
+
+.create-list-icon {
+  margin-right: 10px;
+}
+
+.logout-btn {
+  background-color: #d9534f; /* Red color for logout/danger */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 15px; /* Adjusted padding */
+  cursor: pointer;
+  font-size: 0.9em; /* Adjusted font size */
+  font-weight: 500;
+  width: 100%; /* Make button take full width available in its column */
+  margin-top: 5px; /* Add some space above the logout button */
+  align-self: center; /* Align with the center of user info */
+}
+
+.logout-btn:hover {
+  background-color: #c9302c;
+}
+
+.task-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.task-list-header h1 {
+  margin: 0;
+  font-size: 1.8em;
+  font-weight: 600;
+}
+
+.add-task-input {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 1em;
+  margin-bottom: 20px;
+  background-color: #fff;
+}
+
+.task-item {
+  display: flex;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.task-item:last-child {
+  border-bottom: none;
+}
+
+.task-item input[type="checkbox"] {
+  margin-right: 15px;
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+}
+
+.task-item-details {
+  flex-grow: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.task-item-details span {
+  font-size: 1em;
+  color: #333;
+}
+
+.task-item-details span.completed {
+  text-decoration: line-through;
+  color: #aaa;
+}
+
+.task-actions button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #777;
+  margin-left: 10px;
+  font-size: 0.9em;
+}
+
+.task-actions button:hover {
+  color: #333;
+}
+
+.edit-input {
+  flex-grow: 1;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-right: 10px;
+}
