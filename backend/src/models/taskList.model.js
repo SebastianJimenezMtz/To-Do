@@ -30,10 +30,6 @@ const TaskList = sequelize.define(
       type: DataTypes.DATE,
       allowNull: true,
     },
-    creation_date: {
-      type: DataTypes.DATE,
-      defaultValue: DataTypes.NOW,
-    },
   },
   {
     timestamps: false,
