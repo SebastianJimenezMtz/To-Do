@@ -1,5 +1,6 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../config/db");
+const TaskList = require("./taskList.model");
 
 const Task = sequelize.define(
   "Tasks",
@@ -34,7 +35,7 @@ const Task = sequelize.define(
       allowNull: true,
     },
     Priority: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       allowNull: true,
     },
     CreatedAt: {

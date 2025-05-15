@@ -72,6 +72,10 @@ router.post("/login", async (req, res) => {
       return res.status(401).json({ error: "Credenciales inválidas" });
     }
 
+    // Actualizar el último inicio de sesión
+    user.LastLogin = new Date();
+    await user.save();
+
     // Crear token JWT
     const token = jwt.sign(
       { userId: user.UserID, email: user.Email },
