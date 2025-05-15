@@ -1,4 +1,3 @@
-// db.js
 const { Sequelize } = require("sequelize");
 const dotenv = require("dotenv");
 
@@ -19,7 +18,7 @@ const sequelize = new Sequelize(
       acquire: 30000,
       idle: 10000,
     },
-    logging: false, // Cambia a true si quieres ver las consultas en consola
+    logging: false, // Cambiar a true para ver las consultas en consola
   }
 );
 

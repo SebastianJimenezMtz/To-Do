@@ -1,41 +1,26 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../config/db");
+const User = require("./user.model"); // Importar el modelo de usuario
 
-const Task = sequelize.define(
-  "Tasks",
+const TaskList = sequelize.define(
+  "TaskLists",
   {
-    TaskID: {
+    ListID: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
     },
-    ListID: {
+    UserID: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: TaskList,
-        key: "ListID",
+        model: User,
+        key: "UserID",
       },
     },
     Title: {
       type: DataTypes.STRING,
       allowNull: false,
-    },
-    Description: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
-    IsCompleted: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: false,
-    },
-    DueDate: {
-      type: DataTypes.DATE,
-      allowNull: true,
-    },
-    Priority: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
     },
     CreatedAt: {
       type: DataTypes.DATE,
@@ -52,8 +37,8 @@ const Task = sequelize.define(
   },
   {
     timestamps: false,
-    tableName: "Tasks",
+    tableName: "TaskLists",
   }
 );
 
-module.exports = Task;
+module.exports = TaskList;
