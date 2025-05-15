@@ -3,6 +3,7 @@ const router = express.Router();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const User = require("../models/user.model");
+const verifyJWT = require("../middleware/auth");
 
 const JWT_SECRET = process.env.JWT_SECRET;
 
@@ -75,7 +76,7 @@ router.post("/login", async (req, res) => {
     const token = jwt.sign(
       { userId: user.UserID, email: user.Email },
       JWT_SECRET,
-      { expiresIn: "2h" }
+      { expiresIn: "7d" } // Cambiar a 2h para producción
     );
 
     // Retornar token e info básica del usuario
