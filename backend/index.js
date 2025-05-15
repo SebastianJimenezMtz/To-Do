@@ -6,9 +6,11 @@ const app = express();
 
 // Rutas
 const authRoute = require("./src/routes/auth.route");
+const listRoute = require("./src/routes/taskList.route");
 
 // Middlewares
 const cors = require("./src/middleware/cors");
+const authorization = require("./src/middleware/auth");
 const notFound = require("./src/middleware/notFound");
 
 app.use(cors);
@@ -17,6 +19,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true })); // Para recibir datos de formularios
 
 app.use("/auth", authRoute);
+app.use(authorization); // Middleware de autorización para proteger rutas
+app.use("/taskList", listRoute);
 app.use(notFound);
 
 const HOST = "127.0.0.1";
