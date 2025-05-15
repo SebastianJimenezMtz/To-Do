@@ -1,4 +1,3 @@
-// models/User.js
 const { DataTypes } = require("sequelize");
 const sequelize = require("../config/db");
 
@@ -12,13 +11,13 @@ const Task = sequelize.define(
     list_id: {
       type: DataTypes.INTEGER,
       references: {
-        model: "Lists", // Nombre de la tabla referenciada
+        model: "t_List", // Nombre de la tabla referenciada
         key: "list_id", // Clave primaria de la tabla referenciada
       },
     },
-    title: DataTypes.STRING,
-    description: DataTypes.STRING,
-    state: DataTypes.BOOLEAN,
+    titulo: DataTypes.STRING,
+    descripcion: DataTypes.STRING,
+    estado: DataTypes.BOOLEAN,
   },
   {
     tableName: "Tasks",

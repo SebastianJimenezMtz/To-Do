@@ -1,4 +1,3 @@
-// models/User.js
 const { DataTypes } = require("sequelize");
 const sequelize = require("../config/db");
 
@@ -12,14 +11,14 @@ const List = sequelize.define(
     user_id: {
       type: DataTypes.INTEGER,
       references: {
-        model: "Users", // Nombre de la tabla referenciada
+        model: "t_User", // Nombre de la tabla referenciada
         key: "user_id", // Clave primaria de la tabla referenciada
       },
     },
-    name: DataTypes.STRING,
+    nombre: DataTypes.STRING,
   },
   {
-    tableName: "Lists",
+    tableName: "t_List",
   }
 );
 
