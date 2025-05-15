@@ -1,14 +1,18 @@
 import React, { useState } from 'react';
+import { Fab, Box, Typography } from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
+import { motion } from 'framer-motion';
 import TaskItem from './TaskItem';
+import TaskModal from './TaskModal';
 
 const TaskList = ({ list, tasks, onAddTask, onToggleComplete, onDeleteTask, onEditTask }) => {
-  const [newTaskText, setNewTaskText] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editTaskData, setEditTaskData] = useState(null);
 
-  const handleAddTask = (e) => {
-    e.preventDefault();
-    if (newTaskText.trim() === '') return;
-    onAddTask(list.id, newTaskText.trim());
-    setNewTaskText('');
+  const handleSaveTask = (taskData) => {
+    if (taskData.id) onEditTask(taskData);
+    else onAddTask(taskData);
+    setIsModalOpen(false);
   };
 
   if (!list) {
@@ -20,33 +24,33 @@ const TaskList = ({ list, tasks, onAddTask, onToggleComplete, onDeleteTask, onEd
   }
 
   return (
-    <main className="main-content">
-      <div className="task-list-header">
-        <h1>{list.name}</h1>
-        {/* Placeholder for other header controls like sorting or filtering */}
-      </div>
-      <form onSubmit={handleAddTask}>
-        <input
-          type="text"
-          className="add-task-input"
-          placeholder="Add a new task..."
-          value={newTaskText}
-          onChange={(e) => setNewTaskText(e.target.value)}
-        />
-        {/* Add button could be explicit, or rely on form submission */}
-      </form>
-      <div className="tasks-container">
+    <Box component="main" sx={{ p: 3 }}>
+      <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
+        <Typography variant="h4">{list.name}</Typography>
+        <Fab color="primary" onClick={() => { setEditTaskData(null); setIsModalOpen(true); }} size="small">
+          <AddIcon />
+        </Fab>
+      </Box>
+      <Box>
         {tasks.map((task) => (
-          <TaskItem
-            key={task.id}
-            task={task}
-            onToggleComplete={onToggleComplete}
-            onDeleteTask={onDeleteTask}
-            onEditTask={onEditTask}
-          />
+          <motion.div key={task.id} initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3 }}>
+            <TaskItem
+              task={task}
+              onToggleComplete={onToggleComplete}
+              onDeleteTask={onDeleteTask}
+              onEditTask={(t) => { setEditTaskData(task); setIsModalOpen(true); }}
+            />
+          </motion.div>
         ))}
-      </div>
-    </main>
+      </Box>
+      <TaskModal
+        open={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onSave={handleSaveTask}
+        initialData={editTaskData}
+        listId={list.id}
+      />
+    </Box>
   );
 };
 

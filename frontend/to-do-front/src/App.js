@@ -110,20 +110,9 @@ function App() {
   };
 
   const initializeDefaultData = (username) => {
-    const initialLists = [
-      { id: 'inbox', name: 'Inbox' },
-      { id: 'wishlist', name: 'Wishlist' },
-      { id: 'groceries', name: 'Groceries' },
-      { id: 'beta_launch', name: 'Beta Launch' },
-    ];
-    const initialTasks = {
-      'inbox': [], 'wishlist': [], 'groceries': [],
-      'beta_launch': [
-        { id: generateId(), text: 'Add meta images to head', completed: false },
-        { id: generateId(), text: 'Schedule launch on Product Hunt', completed: false },
-      ],
-    };
-    const initialActiveListId = initialLists.length > 0 ? initialLists[0].id : null; // Default to first list or null
+    const initialLists = [];
+    const initialTasks = {};
+    const initialActiveListId = null;
 
     setLists(initialLists);
     setTasks(initialTasks);
@@ -236,9 +225,10 @@ function App() {
     }
   };
 
-  const handleAddTask = (listId, text) => {
+  const handleAddTask = (taskData) => {
+    const { listId, text, description, dueDate, priority } = taskData;
     if (!listId) return;
-    const newTask = { id: generateId(), text, completed: false };
+    const newTask = { id: generateId(), text, description: description || '', dueDate: dueDate || null, priority: priority || 2, completed: false };
     setTasks(prevTasks => ({
       ...prevTasks,
       [listId]: [...(prevTasks[listId] || []), newTask],
@@ -267,14 +257,13 @@ function App() {
     });
   };
 
-  const handleEditTask = (taskId, newText) => {
+  const handleEditTask = (taskData) => {
+    const { id, listId, text, description, dueDate, priority } = taskData;
     setTasks(prevTasks => {
       const updatedTasks = { ...prevTasks };
-      for (const listId in updatedTasks) {
-        updatedTasks[listId] = updatedTasks[listId].map(task =>
-          task.id === taskId ? { ...task, text: newText } : task
-        );
-      }
+      updatedTasks[listId] = (updatedTasks[listId] || []).map(task =>
+        task.id === id ? { ...task, text, description: description || '', dueDate: dueDate || null, priority: priority || 2 } : task
+      );
       return updatedTasks;
     });
   };

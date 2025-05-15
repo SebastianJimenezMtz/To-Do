@@ -1,41 +1,32 @@
 import React, { useState } from 'react';
-import './AddListModal.css';
+import { Dialog, DialogTitle, DialogContent, DialogActions, TextField, Button } from '@mui/material';
 
 const AddListModal = ({ isOpen, onClose, onAddList }) => {
   const [listName, setListName] = useState('');
 
-  if (!isOpen) {
-    return null;
-  }
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (listName.trim()) {
-      onAddList(listName.trim());
-      setListName('');
-      onClose();
-    }
-  };
-
   return (
-    <div className="modal-overlay">
-      <div className="modal-content">
-        <h2>Create New List</h2>
-        <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            placeholder="Enter new list name"
-            value={listName}
-            onChange={(e) => setListName(e.target.value)}
-            autoFocus
-          />
-          <div className="modal-actions">
-            <button type="submit" className="primary-btn">Create</button>
-            <button type="button" onClick={onClose} className="secondary-btn">Cancel</button>
-          </div>
-        </form>
-      </div>
-    </div>
+    <Dialog open={isOpen} onClose={onClose} fullWidth>
+      <DialogTitle>Create New List</DialogTitle>
+      <DialogContent>
+        <TextField
+          label="List Name"
+          value={listName}
+          onChange={(e) => setListName(e.target.value)}
+          fullWidth
+          autoFocus
+          margin="dense"
+        />
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={onClose}>Cancel</Button>
+        <Button
+          onClick={() => { if(listName.trim()){ onAddList(listName.trim()); setListName(''); } }}
+          variant="contained"
+        >
+          Create
+        </Button>
+      </DialogActions>
+    </Dialog>
   );
 };
 

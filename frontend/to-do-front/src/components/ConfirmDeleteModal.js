@@ -1,26 +1,20 @@
 import React from 'react';
-import './ConfirmDeleteModal.css';
+import { Dialog, DialogTitle, DialogContent, DialogActions, Typography, Button } from '@mui/material';
 
 const ConfirmDeleteModal = ({ isOpen, onClose, onConfirm, title, message }) => {
-  if (!isOpen) {
-    return null;
-  }
-
   return (
-    <div className="confirm-delete-modal-overlay">
-      <div className="confirm-delete-modal">
-        <h3>{title || 'Confirm Deletion'}</h3>
-        <p>{message || 'Are you sure you want to delete this item?'}</p>
-        <div className="confirm-delete-modal-buttons">
-          <button onClick={onConfirm} className="confirm-delete-btn-confirm">
-            Aceptar
-          </button>
-          <button onClick={onClose} className="confirm-delete-btn-cancel">
-            Cancelar
-          </button>
-        </div>
-      </div>
-    </div>
+    <Dialog open={isOpen} onClose={onClose}>
+      <DialogTitle>{title || 'Confirm Deletion'}</DialogTitle>
+      <DialogContent>
+        <Typography>{message || 'Are you sure you want to delete this item?'}</Typography>
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={onClose}>Cancel</Button>
+        <Button color="error" onClick={onConfirm} variant="contained">
+          Confirm
+        </Button>
+      </DialogActions>
+    </Dialog>
   );
 };
 
