@@ -1,13 +1,32 @@
-import React from 'react';
-import { Card, CardContent, Typography, Checkbox, IconButton, Chip, Box } from '@mui/material';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
-import { motion } from 'framer-motion';
-import { format } from 'date-fns';
+import React from "react";
+import {
+  Card,
+  CardContent,
+  Typography,
+  Checkbox,
+  IconButton,
+  Chip,
+  Box,
+} from "@mui/material";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { motion } from "framer-motion";
+import { format } from "date-fns";
 
 const TaskItem = ({ task, onToggleComplete, onDeleteTask, onEditTask }) => {
-  const priorityLabel = (p) => (p === 1 ? 'Low' : p === 2 ? 'Medium' : 'High');
-  const priorityColor = (p) => (p === 1 ? 'default' : p === 2 ? 'primary' : 'error');
+  const priorityColor = (priority) => {
+    switch (priority) {
+      case "Low":
+        return "default";
+      case "Medium":
+        return "primary";
+      case "High":
+        return "error";
+      default:
+        return "default";
+    }
+  };
+
   return (
     <motion.div
       whileHover={{ scale: 1.02 }}
@@ -15,30 +34,54 @@ const TaskItem = ({ task, onToggleComplete, onDeleteTask, onEditTask }) => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.2 }}
     >
-      <Card sx={{ mb: 1, bgcolor: task.completed ? 'action.disabledBackground' : 'background.paper' }}>
-        <CardContent sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <Box sx={{ display: 'flex', alignItems: 'flex-start' }}>
+      <Card
+        sx={{
+          mb: 1,
+          bgcolor: task.IsCompleted
+            ? "action.disabledBackground"
+            : "background.paper",
+        }}
+      >
+        <CardContent
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+          }}
+        >
+          <Box sx={{ display: "flex", alignItems: "flex-start" }}>
             <Checkbox
-              checked={task.completed}
-              onChange={() => onToggleComplete(task.id)}
+              checked={task.IsCompleted}
+              onChange={() => onToggleComplete(task.TaskID)}
             />
             <Box>
-              <Typography variant="subtitle1" sx={{ textDecoration: task.completed ? 'line-through' : 'none' }}>
-                {task.text}
+              <Typography
+                variant="subtitle1"
+                sx={{
+                  textDecoration: task.IsCompleted ? "line-through" : "none",
+                }}
+              >
+                {task.Title}
               </Typography>
-              {task.description && (
+              {task.Description && (
                 <Typography variant="body2" color="text.secondary">
-                  {task.description}
+                  {task.Description}
                 </Typography>
               )}
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mt: 1 }}>
-                {task.dueDate && (
-                  <Chip label={format(new Date(task.dueDate), 'PPP p')} size="small" color="info" />
+              <Box
+                sx={{ display: "flex", alignItems: "center", gap: 1, mt: 1 }}
+              >
+                {task.DueDate && (
+                  <Chip
+                    label={format(new Date(task.DueDate), "PPP p")}
+                    size="small"
+                    color="info"
+                  />
                 )}
                 <Chip
-                  label={priorityLabel(task.priority)}
+                  label={task.Priority}
                   size="small"
-                  color={priorityColor(task.priority)}
+                  color={priorityColor(task.Priority)}
                 />
               </Box>
             </Box>
@@ -47,7 +90,7 @@ const TaskItem = ({ task, onToggleComplete, onDeleteTask, onEditTask }) => {
             <IconButton onClick={() => onEditTask(task)} size="small">
               <EditIcon fontSize="small" />
             </IconButton>
-            <IconButton onClick={() => onDeleteTask(task.id)} size="small">
+            <IconButton onClick={() => onDeleteTask(task.TaskID)} size="small">
               <DeleteIcon fontSize="small" />
             </IconButton>
           </Box>

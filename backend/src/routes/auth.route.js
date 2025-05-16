@@ -22,15 +22,13 @@ router.post("/register", async (req, res) => {
     const { username, email, password } = req.body;
 
     if (!username || !email || !password) {
-      return res
-        .status(400)
-        .json({ error: "Todos los campos son obligatorios" });
+      return res.status(400).json({ error: "All fields are required" });
     }
 
     const existingUser = await User.findOne({ where: { Email: email } });
 
     if (existingUser) {
-      return res.status(409).json({ error: "El usuario ya existe" });
+      return res.status(409).json({ error: "User already exists" });
     }
 
     const encryptedPassword = await encryptPassword(password);
@@ -41,7 +39,7 @@ router.post("/register", async (req, res) => {
       PasswordHash: encryptedPassword,
     });
 
-    res.status(201).json({ message: "Usuario registrado correctamente" });
+    res.status(201).json({ message: "User registered successfully" });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -52,21 +50,19 @@ router.post("/login", async (req, res) => {
     const { email, password } = req.body;
 
     if (!email || !password) {
-      return res
-        .status(400)
-        .json({ error: "Todos los campos son obligatorios" });
+      return res.status(400).json({ error: "All fields are required" });
     }
 
     const user = await User.findOne({ where: { Email: email } });
 
     if (!user) {
-      return res.status(401).json({ error: "Credenciales inválidas" });
+      return res.status(401).json({ error: "Invalid credentials" });
     }
 
     const isMatch = await comparePasswords(password, user.PasswordHash);
 
     if (!isMatch) {
-      return res.status(401).json({ error: "Credenciales inválidas" });
+      return res.status(401).json({ error: "Invalid credentials" });
     }
 
     user.LastLogin = new Date();
