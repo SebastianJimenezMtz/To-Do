@@ -60,10 +60,10 @@ router.post("/", async (req, res) => {
 
 router.post("/:list_id/tasks", async (req, res) => {
   try {
-    const { title, description, priority, dueDate } = req.body;
+    const { Title, Description, Priority, DueDate } = req.body;
     const list_id = req.params.list_id;
 
-    if (!title || !description || !priority || !dueDate) {
+    if (!Title || !Description || !Priority || !DueDate) {
       return res
         .status(400)
         .json({ error: "Todos los campos son obligatorios" });
@@ -79,11 +79,11 @@ router.post("/:list_id/tasks", async (req, res) => {
     }
 
     const newTask = await Task.create({
-      Title: title,
-      Description: description,
+      Title: Title,
+      Description: Description,
       ListID: list_id,
-      Priority: priority,
-      DueDate: dueDate,
+      Priority: Priority,
+      DueDate: DueDate,
     });
 
     return res.status(201).json(newTask);

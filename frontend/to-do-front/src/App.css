@@ -1,7 +1,8 @@
 .App {
   display: flex;
   height: 100vh;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 
 .App-logo {
@@ -55,13 +56,15 @@
   overflow-y: auto;
 }
 
-.user-profile-section { /* New container for profile and logout */
+.user-profile-section {
+  /* New container for profile and logout */
   display: flex;
   flex-direction: column;
   margin-bottom: 25px; /* Increased bottom margin */
 }
 
-.user-details { /* Container for avatar and info */
+.user-details {
+  /* Container for avatar and info */
   display: flex;
   align-items: center;
   margin-bottom: 15px; /* Space between user details and logout button */
@@ -121,7 +124,8 @@
   background-color: #f0f0f0;
 }
 
-.list-item-container { /* New class for li to help with flex layout */
+.list-item-container {
+  /* New class for li to help with flex layout */
   display: flex;
   align-items: center;
   justify-content: space-between; /* Pushes delete button to the right */
