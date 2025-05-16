@@ -2,7 +2,7 @@ const express = require("express");
 const morgan = require("morgan");
 const sequelize = require("./src/config/db");
 const swaggerUi = require("swagger-ui-express");
-const swaggerSpec = require("./docs/swagger");
+const swaggerSpec = require("./src/docs/swagger");
 
 const app = express();
 
@@ -26,8 +26,10 @@ app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Rutas públicas
+// Ruta de documentación
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
+// Rutas públicas
 app.use("/auth", authRoute);
 
 // Middleware de autorización para rutas protegidas

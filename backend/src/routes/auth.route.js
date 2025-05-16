@@ -3,7 +3,6 @@ const router = express.Router();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const User = require("../models/user.model");
-const verifyJWT = require("../middleware/auth");
 
 const JWT_SECRET = process.env.JWT_SECRET;
 
@@ -18,57 +17,6 @@ const comparePasswords = async (plainPassword, hashedPassword) => {
   return await bcrypt.compare(plainPassword, hashedPassword);
 };
 
-/**
- * @swagger
- * tags:
- *   name: Auth
- *   description: Endpoints de autenticación
- */
-
-/**
- * @swagger
- * /auth/register:
- *   post:
- *     summary: Registrar un nuevo usuario
- *     tags: [Auth]
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             required:
- *               - username
- *               - email
- *               - password
- *             properties:
- *               username:
- *                 type: string
- *                 example: juan123
- *               email:
- *                 type: string
- *                 example: juan@example.com
- *               password:
- *                 type: string
- *                 example: miPasswordSegura
- *     responses:
- *       201:
- *         description: Usuario registrado correctamente
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   example: Usuario registrado correctamente
- *       400:
- *         description: Faltan campos obligatorios
- *       409:
- *         description: El usuario ya existe
- *       500:
- *         description: Error del servidor
- */
 router.post("/register", async (req, res) => {
   try {
     const { username, email, password } = req.body;
@@ -99,56 +47,6 @@ router.post("/register", async (req, res) => {
   }
 });
 
-/**
- * @swagger
- * /auth/login:
- *   post:
- *     summary: Iniciar sesión de usuario
- *     tags: [Auth]
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             required:
- *               - email
- *               - password
- *             properties:
- *               email:
- *                 type: string
- *                 example: juan@example.com
- *               password:
- *                 type: string
- *                 example: miPasswordSegura
- *     responses:
- *       200:
- *         description: Usuario autenticado correctamente
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 token:
- *                   type: string
- *                   example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
- *                 user:
- *                   type: object
- *                   properties:
- *                     id:
- *                       type: integer
- *                       example: 1
- *                     name:
- *                       type: string
- *                       example: Juan Pérez
- *                     email:
- *                       type: string
- *                       example: juan@example.com
- *       400:
- *         description: Faltan campos obligatorios
- *       500:
- *         description: Error del servidor
- */
 router.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
