@@ -48,4 +48,8 @@ La aplicación está diseñada para ser desplegada en la nube de Microsoft Azure
 
 ---
 
+## 📚 Documentación Backend
+
+Consulta la documentación técnica y de endpoints en el archivo [`backend/README.md`](./backend/README.md).
+
 ¡Esperamos que disfrutes usando esta aplicación To-Do!
