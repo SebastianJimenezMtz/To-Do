@@ -68,7 +68,7 @@ cd to-do/backend
 
 ### 2️⃣ Configurar Variables de Entorno
 
-Crea un archivo `.env` en la raíz con el siguiente contenido:
+Crea un archivo `.env` en la raíz del proyecto con tus propios valores. Los siguientes son solo ejemplos y `*NO DEBEN USARSE EN EL PROYECTO REAL*` :
 
 ```env
 API_HOST=localhost
