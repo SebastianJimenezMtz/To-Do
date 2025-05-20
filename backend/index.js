@@ -18,7 +18,7 @@ const taskRoute = require("./src/routes/task.route");
 
 // Configuraciones
 const HOST = process.env.API_HOST;
-const PORT = process.env.API_PORT;
+const PORT = process.env.PORT || process.env.API_PORT || 3001;
 
 // Middlewares globales
 app.use(cors);
