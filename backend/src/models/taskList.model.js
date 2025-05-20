@@ -22,6 +22,10 @@ const TaskList = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    Description: { // Adding the Description field
+      type: DataTypes.TEXT, // VARCHAR(MAX) translates to TEXT in Sequelize
+      allowNull: true, // Assuming Description can be optional
+    },
     CreatedAt: {
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW,
