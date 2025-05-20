@@ -12,6 +12,7 @@ const User = sequelize.define(
     Username: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true, // Adding unique constraint
     },
     Email: {
       type: DataTypes.STRING,

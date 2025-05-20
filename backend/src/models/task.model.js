@@ -23,7 +23,7 @@ const Task = sequelize.define(
       allowNull: false,
     },
     Description: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT, // Changed from STRING to TEXT
       allowNull: true,
     },
     IsCompleted: {
@@ -35,7 +35,7 @@ const Task = sequelize.define(
       allowNull: true,
     },
     Priority: {
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER, // Changed from STRING to INTEGER
       allowNull: true,
     },
     CreatedAt: {
