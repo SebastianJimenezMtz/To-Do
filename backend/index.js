@@ -6,7 +6,6 @@ const swaggerSpec = require("./src/docs/swagger");
 
 const app = express();
 
-
 // Middlewares
 const cors = require("./src/middleware/cors");
 const authorization = require("./src/middleware/auth");
@@ -18,7 +17,7 @@ const taskListRoute = require("./src/routes/taskList.route");
 const taskRoute = require("./src/routes/task.route");
 
 // Configuraciones
-const HOST = process.env.API_HOST;
+const HOST = process.env.API_HOST || '0.0.0.0'; // Acepta conexiones externas
 const PORT = process.env.PORT || process.env.API_PORT || 3001;
 
 // Middlewares globales
@@ -50,9 +49,8 @@ sequelize
     console.log("✅ Conectado a la base de datos MySQL");
     app.listen(PORT, HOST, () => {
       console.log(`🚀 Servidor corriendo en http://${HOST}:${PORT}`);
-      console.log(
-        `📚 Documentación disponible en http://${HOST}:${PORT}/api-docs`
-      );
+      console.log(`📚 Documentación disponible en http://${HOST}:${PORT}/api-docs`);
     });
   })
   .catch((err) => console.error("❌ Error de conexión:", err));
+
