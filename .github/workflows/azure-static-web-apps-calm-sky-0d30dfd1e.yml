@@ -16,19 +16,28 @@ jobs:
     name: Build and Deploy Job
     steps:
       - uses: actions/checkout@v3
+      
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v3
         with:
-          submodules: true
-          lfs: false
-      - name: Build And Deploy
+          node-version: '18'  # o la versión que uses
+      
+      - name: Install dependencies and build frontend
+        working-directory: frontend/to-do-front
+        run: |
+          npm install
+          npm run build
+
+      - name: Build And Deploy to Azure Static Web Apps
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_CALM_SKY_0D30DFD1E }}
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           action: "upload"
-          app_location: "./frontend/to-do-front"
-          api_location: ""
-          output_location: "build"
+          app_location: "frontend/to-do-front"
+          api_location: ""                 # Aquí no tienes Azure Functions en el repo
+          output_location: "frontend/to-do-front/build"
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
@@ -41,4 +50,3 @@ jobs:
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_CALM_SKY_0D30DFD1E }}
           action: "close"
-
