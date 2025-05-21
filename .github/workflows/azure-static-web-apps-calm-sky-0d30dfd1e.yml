@@ -37,7 +37,7 @@ jobs:
           action: "upload"
           app_location: "frontend/to-do-front"
           api_location: ""                 # Aquí no tienes Azure Functions en el repo
-          output_location: "frontend/to-do-front/build"
+          output_location: "build"
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
