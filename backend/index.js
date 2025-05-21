@@ -6,6 +6,7 @@ const swaggerSpec = require("./src/docs/swagger");
 
 const app = express();
 
+
 // Middlewares
 const cors = require("./src/middleware/cors");
 const authorization = require("./src/middleware/auth");
