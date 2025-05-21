@@ -1,23 +1,45 @@
 import API_URL from '../apiConfig';
 
-const API_BASE_URL = API_URL; // Cambia si usas Azure u otro host
+const API_BASE_URL = API_URL;
 
 const authHeaders = () => {
   const token = localStorage.getItem("token");
   return token ? { Authorization: `Bearer ${token}` } : {};
 };
 
+// Helper para manejar fetch y errores
+const handleFetch = async (url, options = {}) => {
+  try {
+    const response = await fetch(url, options);
+    
+    if (!response.ok) {
+      const errorText = await response.text(); // leer aunque no sea JSON
+      throw new Error(`Error ${response.status}: ${errorText || response.statusText}`);
+    }
+
+    const contentType = response.headers.get("content-type");
+    if (contentType && contentType.includes("application/json")) {
+      return await response.json();
+    }
+
+    return null; // En caso de respuestas vacías
+  } catch (error) {
+    console.error(`🔴 Fetch error at ${url}:`, error);
+    throw error;
+  }
+};
+
 // --- AUTH ---
 
 export const login = (credentials) =>
-  fetch(`${API_BASE_URL}/auth/login`, {
+  handleFetch(`${API_BASE_URL}/auth/login`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(credentials),
   });
 
 export const register = (userData) =>
-  fetch(`${API_BASE_URL}/auth/register`, {
+  handleFetch(`${API_BASE_URL}/auth/register`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(userData),
@@ -26,14 +48,12 @@ export const register = (userData) =>
 // --- LISTS ---
 
 export const fetchUserLists = () =>
-  fetch(`${API_BASE_URL}/taskList`, {
-    headers: {
-      ...authHeaders(),
-    },
+  handleFetch(`${API_BASE_URL}/taskList`, {
+    headers: { ...authHeaders() },
   });
 
 export const addList = (title) =>
-  fetch(`${API_BASE_URL}/taskList`, {
+  handleFetch(`${API_BASE_URL}/taskList`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -43,24 +63,20 @@ export const addList = (title) =>
   });
 
 export const deleteList = (listId) =>
-  fetch(`${API_BASE_URL}/taskList/${listId}`, {
+  handleFetch(`${API_BASE_URL}/taskList/${listId}`, {
     method: "DELETE",
-    headers: {
-      ...authHeaders(),
-    },
+    headers: { ...authHeaders() },
   });
 
 // --- TASKS ---
 
 export const fetchUserTasks = (taskListId) =>
-  fetch(`${API_BASE_URL}/taskList/${taskListId}/tasks`, {
-    headers: {
-      ...authHeaders(),
-    },
+  handleFetch(`${API_BASE_URL}/taskList/${taskListId}/tasks`, {
+    headers: { ...authHeaders() },
   });
 
 export const addTask = (taskData) =>
-  fetch(`${API_BASE_URL}/taskList/${taskData.ListID}/tasks`, {
+  handleFetch(`${API_BASE_URL}/taskList/${taskData.ListID}/tasks`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -70,23 +86,19 @@ export const addTask = (taskData) =>
   });
 
 export const toggleTaskComplete = (taskId) =>
-  fetch(`${API_BASE_URL}/tasks/${taskId}/toggle`, {
+  handleFetch(`${API_BASE_URL}/tasks/${taskId}/toggle`, {
     method: "PATCH",
-    headers: {
-      ...authHeaders(),
-    },
+    headers: { ...authHeaders() },
   });
 
 export const deleteTask = (taskId) =>
-  fetch(`${API_BASE_URL}/tasks/${taskId}`, {
+  handleFetch(`${API_BASE_URL}/tasks/${taskId}`, {
     method: "DELETE",
-    headers: {
-      ...authHeaders(),
-    },
+    headers: { ...authHeaders() },
   });
 
 export const editTask = (taskId, taskData) =>
-  fetch(`${API_BASE_URL}/tasks/${taskId}`, {
+  handleFetch(`${API_BASE_URL}/tasks/${taskId}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
